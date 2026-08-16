@@ -1,0 +1,21 @@
+{
+  "name": "ship-standard",
+  "version": "0.1.0",
+  "description": "Acceptance and launch dimensions that grow over time.",
+  "dimensions": [
+    {
+      "id": "launch",
+      "title": "从功能做完到真正上线",
+      "path": "dimensions/launch.md",
+      "status": "stable",
+      "summary": "Feature-complete is not live. Classify, evidence, package, canary, observe, rollback, stop signal."
+    },
+    {
+      "id": "resilience",
+      "title": "长跑容错",
+      "path": "dimensions/resilience.md",
+      "status": "stable",
+      "summary": "Read the real page or API text first. One class, one action. Never stall the whole run."
+    }
+  ]
+}
