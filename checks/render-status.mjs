@@ -80,6 +80,7 @@ when the product declares them.
 |-------|--------|-------------------|-------------|
 ${levelRows}
 
+${deprecated.length ? `## Deprecated ids (never reused)\n\n${deprecated.map((g) => `- \`${g.id}\` → \`${g.supersededBy}\``).join('\n')}\n` : ''}
 ## How to use
 
 - 引用门禁请用 id（例如 \`PATH-3\`），不要引用行号或段落标题。

@@ -8,11 +8,11 @@
 
 | 纬度 | 状态 | 适用 | 一句话 | 现行门禁 |
 |------|------|------|--------|----------|
-| [launch](./dimensions/launch.md) | stable | all | 功能做完 ≠ 真正上线 | `LAUNCH-1..10` |
+| [launch](./dimensions/launch.md) | stable | all | 功能做完 ≠ 真正上线 | `LAUNCH-1..11` |
 | [resilience](./dimensions/resilience.md) | stable | opt-in | 长跑：一种问题一种动作 | `RESIL-3..8` |
 | [diagnose](./dimensions/diagnose.md) | stable | all | 一个会话只追一个根因 | `DIAG-1..5` |
-| [quality-kernel](./dimensions/quality-kernel.md) | draft | opt-in | 产品力取主柱最小值 | `KERNEL-1..6` |
-| [acceptance-path](./dimensions/acceptance-path.md) | draft | opt-in | 主路径没勾完不算收尾 | `PATH-1..6` |
+| [quality-kernel](./dimensions/quality-kernel.md) | stable | opt-in | 产品力取主柱最小值 | `KERNEL-1` `KERNEL-2` `KERNEL-4..7` |
+| [acceptance-path](./dimensions/acceptance-path.md) | stable | opt-in | 主路径没勾完不算收尾 | `PATH-1` `PATH-3..7` |
 | [pre-ship](./dimensions/pre-ship.md) | stable | opt-in | 上架包装服从内核 | `PRESHIP-1..7` |
 | [compound](./dimensions/compound.md) | draft | opt-in | 产品力靠复利，不靠堆功能 | `COMPOUND-1..6` |
 | [probe](./dimensions/probe.md) | stable | all | 完成由门禁证据说了算 | `PROBE-1..6` |
@@ -82,7 +82,7 @@ CI 在每个 PR 上跑同一条命令，并在 `STATUS.md` 过期时失败。
 | 意图 | 现行 id |
 |------|---------|
 | 日志能分清 skip / cooldown / shed / watchdog / deferred | `RESIL-8` |
-| 密钥不进包；配置 URL / 粘贴 / 离线第三条路 | `LAUNCH-5` |
+| 密钥不进包；配置 URL / 粘贴 / 离线第三条路 | `LAUNCH-5` `LAUNCH-11` |
 | 回滚条件预先写死 | `LAUNCH-10` |
 | 主机负载进看门狗 | `RESIL-7` `LAUNCH-9` |
 | 兼容矩阵与权限向导 | `PRESHIP-3` |

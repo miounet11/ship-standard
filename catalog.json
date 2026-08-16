@@ -1,6 +1,6 @@
 {
   "name": "ship-standard",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Acceptance and launch dimensions with stable gate ids.",
   "gates": "gates.json",
   "related": {
@@ -33,14 +33,14 @@
       "id": "quality-kernel",
       "title": "质量内核",
       "path": "dimensions/quality-kernel.md",
-      "status": "draft",
+      "status": "stable",
       "summary": "Score the min of product pillars. Lock invariants. A fix users cannot install is not a fix."
     },
     {
       "id": "acceptance-path",
       "title": "主路径验收",
       "path": "dimensions/acceptance-path.md",
-      "status": "draft",
+      "status": "stable",
       "summary": "Real topology, same version on every end, seven-step main path, then soak."
     },
     {

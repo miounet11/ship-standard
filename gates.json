@@ -1,7 +1,7 @@
 {
   "$comment": "Gate IDs are the stable contract. Product repos reference these ids in waivers, PR templates and release scripts. Every id here MUST appear verbatim in its dimension file, and every checklist item in a dimension file MUST have an id.",
   "standard": "ship-standard",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "severities": {
     "block": "Failing this rejects the release (or downgrades it to beta).",
     "warn": "Failing this posts a note. Promote to block after two stable green runs."
@@ -32,7 +32,7 @@
     "doc-system": "all"
   },
   "$waivable": "Gates absent from this list may be waived with a due date and an owner. These may not: a waiver here would let the standard bless irreversible harm.",
-  "nonWaivable": ["LAUNCH-5", "PRESHIP-4"],
+  "nonWaivable": ["LAUNCH-5", "LAUNCH-11", "PRESHIP-4"],
   "gates": [
     { "id": "LAUNCH-1", "dimension": "launch", "stage": "release", "severity": "block", "text": "验收句可测试，主路径四步标了禁止重放" },
     { "id": "LAUNCH-2", "dimension": "launch", "stage": "contract", "severity": "block", "text": "≥20 条真实失败原文进了分类测试" },
@@ -44,6 +44,7 @@
     { "id": "LAUNCH-8", "dimension": "launch", "stage": "release", "severity": "block", "text": "旧进程已停，新旧不抢同一资源" },
     { "id": "LAUNCH-9", "dimension": "launch", "stage": "release", "severity": "block", "text": "看门狗、硬顶时间、降载、延后导入已打开" },
     { "id": "LAUNCH-10", "dimension": "launch", "stage": "release", "severity": "block", "text": "回滚条件写死，第一个小时的成功样本已看到" },
+    { "id": "LAUNCH-11", "dimension": "launch", "stage": "release", "severity": "block", "text": "第三条配置路径可用，且不依赖在文档中公布主机地址" },
 
     { "id": "RESIL-1", "dimension": "resilience", "stage": "contract", "severity": "block", "deprecated": true, "supersededBy": "LAUNCH-2", "text": "20 条真实失败原文写成分类测试，不只测自编枚举" },
     { "id": "RESIL-2", "dimension": "resilience", "stage": "see", "severity": "block", "deprecated": true, "supersededBy": "LAUNCH-1", "text": "四步画出并标出禁止重放的动作" },
@@ -62,13 +63,15 @@
 
     { "id": "KERNEL-1", "dimension": "quality-kernel", "stage": "see", "severity": "block", "text": "本产品主柱已写下，评分用 min 不是平均" },
     { "id": "KERNEL-2", "dimension": "quality-kernel", "stage": "change-safe", "severity": "block", "text": "每层唯一职责表已写，无两环同改一旋钮" },
-    { "id": "KERNEL-3", "dimension": "quality-kernel", "stage": "contract", "severity": "block", "text": "K1–K10 或等价不变量有测试" },
+    { "id": "KERNEL-3", "dimension": "quality-kernel", "stage": "contract", "severity": "block", "deprecated": true, "supersededBy": "KERNEL-7", "text": "K1–K10 或等价不变量有测试" },
+    { "id": "KERNEL-7", "dimension": "quality-kernel", "stage": "contract", "severity": "block", "text": "本产品不变量表已写下并有测试" },
     { "id": "KERNEL-4", "dimension": "quality-kernel", "stage": "change-safe", "severity": "block", "text": "本轮没有一症状一补丁式跨层大改" },
     { "id": "KERNEL-5", "dimension": "quality-kernel", "stage": "release", "severity": "block", "text": "用户通道已能吃到本版（分发落后 ≤ 一个次版本）" },
     { "id": "KERNEL-6", "dimension": "quality-kernel", "stage": "release", "severity": "block", "text": "主路径清单仍是尚未勾完的那份，没有用功能矩阵代替" },
 
     { "id": "PATH-1", "dimension": "acceptance-path", "stage": "release", "severity": "block", "text": "主路径 7 步已勾，或明确停在失败步" },
-    { "id": "PATH-2", "dimension": "acceptance-path", "stage": "release", "severity": "block", "text": "拓扑是产品真实路径，不是嵌套互控" },
+    { "id": "PATH-2", "dimension": "acceptance-path", "stage": "release", "severity": "block", "deprecated": true, "supersededBy": "PATH-7", "text": "拓扑是产品真实路径，不是嵌套互控" },
+    { "id": "PATH-7", "dimension": "acceptance-path", "stage": "release", "severity": "block", "text": "验收拓扑是真实用户路径，反模式环境不计入通过" },
     { "id": "PATH-3", "dimension": "acceptance-path", "stage": "release", "severity": "block", "text": "各端同 version，用户通道已对齐" },
     { "id": "PATH-4", "dimension": "acceptance-path", "stage": "release", "severity": "warn", "text": "已排除本机竞品 / 自动化干扰" },
     { "id": "PATH-5", "dimension": "acceptance-path", "stage": "release", "severity": "block", "text": "文案无人话以外的协议词；设置入口唯一" },

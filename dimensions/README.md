@@ -7,8 +7,8 @@
 | [launch.md](./launch.md) | stable | all | 功能做完到真正上线 |
 | [resilience.md](./resilience.md) | stable | opt-in | 长跑：先取证再归类 |
 | [diagnose.md](./diagnose.md) | stable | all | 收尾修 bug：分层、单根因、正式路径 |
-| [quality-kernel.md](./quality-kernel.md) | draft | opt-in | 主柱取 min；不变量；停止消防队 |
-| [acceptance-path.md](./acceptance-path.md) | draft | opt-in | 主路径 7 步、真实拓扑、同版本 |
+| [quality-kernel.md](./quality-kernel.md) | stable | opt-in | 主柱取 min；不变量；停止消防队 |
+| [acceptance-path.md](./acceptance-path.md) | stable | opt-in | 主路径 7 步、真实拓扑、同版本 |
 | [pre-ship.md](./pre-ship.md) | stable | opt-in | 上架面服从内核；生产守卫 |
 | [compound.md](./compound.md) | draft | opt-in | 复利顺序：看见 → 改得动 → 合同 |
 | [probe.md](./probe.md) | stable | all | 发版看得见红绿证据 |
