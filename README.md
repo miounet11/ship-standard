@@ -10,6 +10,10 @@
 |------|--------|------|
 | [launch](./dimensions/launch.md) | 功能做完 ≠ 真正上线 | 8 个阶段 + 打印用门禁 |
 | [resilience](./dimensions/resilience.md) | 先取证再归类，一种问题一种动作 | 长跑自动化容错 |
+| [diagnose](./dimensions/diagnose.md) | 一个会话只追一个根因 | 分层定位 + 正式路径验收 |
+| [quality-kernel](./dimensions/quality-kernel.md) | 产品力取主柱最小值 | 不变量；用户没装到 = 没修 |
+| [acceptance-path](./dimensions/acceptance-path.md) | 主路径没勾完不算收尾 | 真实拓扑、双端同号、7 步冒烟 |
+| [pre-ship](./dimensions/pre-ship.md) | 上架包装服从内核 | 内测 ≠ 商用；生产守卫 |
 
 机器可读目录：[catalog.json](./catalog.json)。
 
@@ -19,8 +23,9 @@
 
 1. 新功能开发完成时，先打开 [launch](./dimensions/launch.md) 的门禁，没勾完的那一项就是还不能上线的原因。
 2. 长跑、接码、表单、导入这类会空转的系统，再对照 [resilience](./dimensions/resilience.md)。
-3. 某次排障里抽出可复用的做法，按 [dimensions/_template.md](./dimensions/_template.md) 加一个新纬度，并登记到 `catalog.json`。
-4. 具体产品的对照表放进 [examples/](./examples/)，不要把密钥、内网地址、库存域名写进纬度正文。
+3. 收尾修「连上了但不能用」时，用 [diagnose](./dimensions/diagnose.md)；连续打补丁时用 [quality-kernel](./dimensions/quality-kernel.md)；发版勾选用 [acceptance-path](./dimensions/acceptance-path.md)；商店/官网用 [pre-ship](./dimensions/pre-ship.md)。
+4. 某次排障里抽出可复用的做法，按 [dimensions/_template.md](./dimensions/_template.md) 加一个新纬度，并登记到 `catalog.json`。
+5. 具体产品的对照表放进 [examples/](./examples/)，不要把密钥、内网地址、库存域名写进纬度正文。
 
 ---
 
@@ -45,6 +50,7 @@
 | `secrets` | 密钥表、配置 URL、轮换与泄露作废 |
 | `rollback` | 回滚条件预先写死，触发则切回上一包 |
 | `host` | CPU / 内存 / 线程窗口，基础设施与业务分类分开 |
+| `compat` | 最低系统版本、权限向导、WebView/运行时必备组件 |
 
 ---
 

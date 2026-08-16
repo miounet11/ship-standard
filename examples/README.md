@@ -11,3 +11,4 @@
 | 文件 | 对应纬度 | 说明 |
 |------|----------|------|
 | [long-running-signup.md](./long-running-signup.md) | launch + resilience | 长跑注册/收码类任务的坑与对条 |
+| [remote-desktop-wrapup.md](./remote-desktop-wrapup.md) | diagnose + quality-kernel + acceptance-path + pre-ship | 远控收尾：四柱、分层、同版本、上架面 |

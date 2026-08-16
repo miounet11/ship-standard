@@ -1,6 +1,6 @@
 {
   "name": "ship-standard",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Acceptance and launch dimensions that grow over time.",
   "dimensions": [
     {
@@ -16,6 +16,34 @@
       "path": "dimensions/resilience.md",
       "status": "stable",
       "summary": "Read the real page or API text first. One class, one action. Never stall the whole run."
+    },
+    {
+      "id": "diagnose",
+      "title": "分层定位",
+      "path": "dimensions/diagnose.md",
+      "status": "stable",
+      "summary": "One session, one root cause. Layered evidence. Production path, not only dev."
+    },
+    {
+      "id": "quality-kernel",
+      "title": "质量内核",
+      "path": "dimensions/quality-kernel.md",
+      "status": "stable",
+      "summary": "Score the min of product pillars. Lock invariants. A fix users cannot install is not a fix."
+    },
+    {
+      "id": "acceptance-path",
+      "title": "主路径验收",
+      "path": "dimensions/acceptance-path.md",
+      "status": "stable",
+      "summary": "Real topology, same version on every end, seven-step main path, then soak."
+    },
+    {
+      "id": "pre-ship",
+      "title": "上架面",
+      "path": "dimensions/pre-ship.md",
+      "status": "stable",
+      "summary": "Store and brand follow the kernel. Beta is not commercial. Production guards stay on."
     }
   ]
 }
