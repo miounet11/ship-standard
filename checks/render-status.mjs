@@ -87,6 +87,8 @@ ${deprecated.length ? `## Deprecated ids (never reused)\n\n${deprecated.map((g) 
 - 豁免写在产品仓的 \`product/waivers.md\`，必须有到期日与 owner；不可豁免：${gatesDoc.nonWaivable.map((i) => `\`${i}\``).join(' ')}。
 - 怎么创建去 [build-standard](https://github.com/miounet11/build-standard)。
 - 洞察有没有落成定律去 [creativity-is-engineering](https://github.com/miounet11/creativity-is-engineering)。
+- 六面修交接本去 [ability-harness](https://github.com/miounet11/ability-harness)。
+- 迭代 / 升级 / 修 bug 审查去 [review-harness](https://github.com/miounet11/review-harness)。
 `;
 
 await writeFile(join(ROOT, 'STATUS.md'), out);

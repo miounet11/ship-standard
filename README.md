@@ -24,19 +24,21 @@
 
 ---
 
-## 边界：三仓不重叠
+## 边界：一问一仓
 
 同一件事只有一个权威。
 
 | 问题 | 权威 |
 |------|------|
-| 高质量软件总纲、十条铁律、成熟度分级 | [build-standard/SCHEME.md](https://github.com/miounet11/build-standard/blob/main/SCHEME.md) |
+| 高质量软件总纲、十二条铁律、成熟度分级 | [build-standard/SCHEME.md](https://github.com/miounet11/build-standard/blob/main/SCHEME.md) |
 | **怎么创建**：七步怎么执行、人与 Agent 分工、仓库记忆、最小变绿 | [build-standard](https://github.com/miounet11/build-standard) `practices/` |
 | **能不能上线**：门禁 id、主柱、主路径、灰度、回滚 | **本仓** `dimensions/` |
 | **创造有没有落成定律**：不删优势、分段、洞察落盘 | [creativity-is-engineering](https://github.com/miounet11/creativity-is-engineering) |
+| 这个模型在六面上能不能修交接本 | [ability-harness](https://github.com/miounet11/ability-harness) |
+| 这轮迭代 / 升级 / 修 bug 有没有漏审查 | [review-harness](https://github.com/miounet11/review-harness) |
 | 豁免单、产品仓空合同模板、落地脚本 | build-standard `templates/` |
 
-本仓不写「怎么写代码」。build-standard 不写门禁判定。creativity-is-engineering 不写「这版能不能发给用户」。
+本仓不写「怎么写代码」。build-standard 不写门禁判定。creativity-is-engineering 不写「这版能不能发给用户」。评测与审查循环不进本仓现行清单。
 
 ---
 
@@ -86,6 +88,8 @@ CI 在每个 PR 上跑同一条命令，并在 `STATUS.md` 过期时失败。
 | 回滚条件预先写死 | `LAUNCH-10` |
 | 主机负载进看门狗 | `RESIL-7` `LAUNCH-9` |
 | 兼容矩阵与权限向导 | `PRESHIP-3` |
+| 六面 AI 修交接本 | [ability-harness](https://github.com/miounet11/ability-harness)（不是新纬度） |
+| 迭代 / 升级 / 修 bug 审查循环 | [review-harness](https://github.com/miounet11/review-harness)（不是新纬度） |
 
 ---
 

@@ -14,6 +14,7 @@ This repo is a **standard**, not an application. It answers one question: can th
 - Secrets, live env files, installer binaries, host addresses
 - How-to-write-code practices (those live in [build-standard](https://github.com/miounet11/build-standard))
 - Whether an insight became a citable law (that lives in [creativity-is-engineering](https://github.com/miounet11/creativity-is-engineering))
+- Six-surface eval seeds ([ability-harness](https://github.com/miounet11/ability-harness)) and the iteration review loop ([review-harness](https://github.com/miounet11/review-harness))
 - New dimensions named observe / secrets / rollback / host / compat
 
 ## How to add a dimension

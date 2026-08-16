@@ -148,6 +148,12 @@ const readme = await readText('README.md');
 if (!/build-standard/.test(readme) || !/creativity-is-engineering/.test(readme)) {
   fail('DOC-1', 'README.md must name build-standard and creativity-is-engineering');
 }
+if (!catalog.related?.['ability-harness'] || !catalog.related?.['review-harness']) {
+  fail('RELATED-MISSING', 'catalog.related must name ability-harness and review-harness');
+}
+if (!/ability-harness/.test(readme) || !/review-harness/.test(readme)) {
+  fail('RELATED-MISSING', 'README.md must name ability-harness and review-harness');
+}
 
 for (const f of mdFiles) {
   if (/最新|latest-version|FINAL/i.test(f)) {

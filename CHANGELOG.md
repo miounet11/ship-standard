@@ -2,6 +2,14 @@
 
 标准本身也要能被安全采用：门禁 id 一旦公布就不改含义，只新增或标 deprecated。
 
+## 0.8.1
+
+无合同变更。家族地图补上评测尺和审查循环，不新开门禁。
+
+- `catalog.related` 与 README 补上 [ability-harness](https://github.com/miounet11/ability-harness) 与 [review-harness](https://github.com/miounet11/review-harness)。
+- 「已覆盖，不再单开纬度」写明：修交接本和迭代审查不是本仓新纬度。
+- `LAUNCH-5` / `LAUNCH-11` / `PRESHIP-4` 仍不可豁免。
+
 ## 0.8.0
 
 把产品形状从合同里拿出去，收紧第三条路径。

@@ -1,11 +1,13 @@
 {
   "name": "ship-standard",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Acceptance and launch dimensions with stable gate ids.",
   "gates": "gates.json",
   "related": {
     "build-standard": "https://github.com/miounet11/build-standard",
-    "creativity-is-engineering": "https://github.com/miounet11/creativity-is-engineering"
+    "creativity-is-engineering": "https://github.com/miounet11/creativity-is-engineering",
+    "ability-harness": "https://github.com/miounet11/ability-harness",
+    "review-harness": "https://github.com/miounet11/review-harness"
   },
   "dimensions": [
     {
