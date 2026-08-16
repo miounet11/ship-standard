@@ -1,6 +1,6 @@
 {
   "name": "ship-standard",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Acceptance and launch dimensions that grow over time.",
   "dimensions": [
     {
@@ -44,6 +44,20 @@
       "path": "dimensions/pre-ship.md",
       "status": "stable",
       "summary": "Store and brand follow the kernel. Beta is not commercial. Production guards stay on."
+    },
+    {
+      "id": "compound",
+      "title": "产品力复利",
+      "path": "dimensions/compound.md",
+      "status": "stable",
+      "summary": "See first, make change safe, then turn capability into a contract. North star filters the quarter."
+    },
+    {
+      "id": "probe",
+      "title": "探针先行",
+      "path": "dimensions/probe.md",
+      "status": "stable",
+      "summary": "Red test first. Done is what the gate says. Baselines and architecture locks compound."
     }
   ]
 }

@@ -2,6 +2,8 @@
 
 目标：让下一次开发少走空转，而不是把手册写成小说。
 
+非平凡改动本身也应对本仓库走 [probe](./dimensions/probe.md) 的七步：先红灯（缺纬度、缺门禁），再补文档。
+
 ## 加一个新纬度
 
 1. 复制 [dimensions/_template.md](./dimensions/_template.md) 为 `dimensions/<id>.md`。
