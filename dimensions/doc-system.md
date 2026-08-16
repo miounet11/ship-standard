@@ -1,6 +1,6 @@
 # 文档系统：现行合同短，过期文件进归档
 
-高质量软件的文档不是越多越好。长项目里，多份「最新」会让下一会话读错并写错。创建侧制度见 [build-standard SCHEME](https://github.com/miounet11/build-standard/blob/main/SCHEME.md)。
+高质量软件的文档不是越多越好。长项目里，多份「最新」会让下一会话读错并写错。创建侧制度见 [build-standard](https://github.com/miounet11/build-standard) 的 `practices/authority.md` / `status.md` / `archive.md`。洞察落成定律见 [creativity-is-engineering](https://github.com/miounet11/creativity-is-engineering)。
 
 本纬度只验收：**发版时文档有没有在帮门禁，而不是在帮倒忙。**
 

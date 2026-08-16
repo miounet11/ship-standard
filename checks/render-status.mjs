@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-// Generates STATUS.md from catalog.json + gates.json. Never hand-edit STATUS.md.
-
 import { readFile, writeFile } from 'node:fs/promises';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,10 +8,12 @@ const read = async (p) => JSON.parse(await readFile(join(ROOT, p), 'utf8'));
 
 const catalog = await read('catalog.json');
 const gatesDoc = await read('gates.json');
+const active = gatesDoc.gates.filter((g) => !g.deprecated);
+const deprecated = gatesDoc.gates.filter((g) => g.deprecated);
 
 const byStage = new Map();
 const byDimension = new Map();
-for (const g of gatesDoc.gates) {
+for (const g of active) {
   byStage.set(g.stage, (byStage.get(g.stage) ?? 0) + 1);
   const d = byDimension.get(g.dimension) ?? { block: 0, warn: 0 };
   d[g.severity] += 1;
@@ -22,6 +22,22 @@ for (const g of gatesDoc.gates) {
 
 const stageRows = Object.keys(gatesDoc.stages)
   .map((s) => `| \`${s}\` | ${byStage.get(s) ?? 0} | ${gatesDoc.stages[s]} |`)
+  .join('\n');
+
+const optIn = Object.entries(gatesDoc.applies)
+  .filter(([, v]) => v === 'opt-in')
+  .map(([k]) => k);
+
+const levelRows = Object.entries(gatesDoc.levels)
+  .map(([level, def]) => {
+    const blocking = active.filter(
+      (g) => def.stages.includes(g.stage) && g.severity === 'block' && gatesDoc.applies[g.dimension] === 'all',
+    );
+    const optional = active.filter(
+      (g) => def.stages.includes(g.stage) && g.severity === 'block' && gatesDoc.applies[g.dimension] === 'opt-in',
+    );
+    return `| **${level} ${def.name}** | ${def.stages.map((s) => `\`${s}\``).join(' ')} | ${blocking.length} | +${optional.length} |`;
+  })
   .join('\n');
 
 const dimRows = catalog.dimensions
@@ -37,12 +53,16 @@ const out = `# STATUS
 
 Standard version: \`${catalog.version}\`
 
+Active gates: **${active.length}** · deprecated (kept, never reused): **${deprecated.length}**
+
 ## Gates by dimension
+
+Counts exclude deprecated ids.
 
 | Dimension | Status | block | warn |
 |-----------|--------|-------|------|
 ${dimRows}
-| **total** | — | **${gatesDoc.gates.filter((g) => g.severity === 'block').length}** | **${gatesDoc.gates.filter((g) => g.severity === 'warn').length}** |
+| **total** | — | **${active.filter((g) => g.severity === 'block').length}** | **${active.filter((g) => g.severity === 'warn').length}** |
 
 ## Gates by stage
 
@@ -50,12 +70,23 @@ ${dimRows}
 |-------|-------|---------|
 ${stageRows}
 
+## Maturity levels (derived, not hand-listed)
+
+At level \`Ln\` a gate blocks iff its stage is in that level and its severity is \`block\`.
+Everything above the level runs as \`warn\`. Opt-in dimensions (${optIn.join(', ')}) only bind
+when the product declares them.
+
+| Level | Stages | Blocking (always) | Opt-in adds |
+|-------|--------|-------------------|-------------|
+${levelRows}
+
 ## How to use
 
 - 引用门禁请用 id（例如 \`PATH-3\`），不要引用行号或段落标题。
-- 豁免写在产品仓的 \`product/waivers.md\`，必须有到期日；见 [build-standard](https://github.com/miounet11/build-standard)。
-- 想知道「怎么创建」而不是「能不能上线」，去 build-standard。
+- 豁免写在产品仓的 \`product/waivers.md\`，必须有到期日与 owner；不可豁免：${gatesDoc.nonWaivable.map((i) => `\`${i}\``).join(' ')}。
+- 怎么创建去 [build-standard](https://github.com/miounet11/build-standard)。
+- 洞察有没有落成定律去 [creativity-is-engineering](https://github.com/miounet11/creativity-is-engineering)。
 `;
 
 await writeFile(join(ROOT, 'STATUS.md'), out);
-console.log(`wrote STATUS.md (${gatesDoc.gates.length} gates, version ${catalog.version})`);
+console.log(`wrote STATUS.md (${active.length} active / ${deprecated.length} deprecated, version ${catalog.version})`);

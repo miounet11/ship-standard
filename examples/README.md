@@ -7,9 +7,12 @@
 - 可以写失败类型和动作，不要写密钥、真实账号、库存域名、内网地址
 - 过期的对照可以标 `status: archived`，不要删原则
 - 新例子用短横线文件名，并在本页表格加一行
+- 现行 block 门禁必须在某个例子里用 `` `ID` `` 出现
+- 引用用 id，不要用「§2」或「K8」
 
 | 文件 | 对应纬度 | 说明 |
 |------|----------|------|
 | [long-running-signup.md](./long-running-signup.md) | launch + resilience | 长跑注册/收码类任务的坑与对条 |
 | [remote-desktop-wrapup.md](./remote-desktop-wrapup.md) | diagnose + quality-kernel + acceptance-path + pre-ship | 远控收尾：四柱、分层、同版本、上架面 |
 | [browser-compound.md](./browser-compound.md) | compound + probe | 桌面浏览器：合同目录、架构探针、能力基线 |
+| [standard-self.md](./standard-self.md) | doc-system | 标准自己过自己的门禁 |

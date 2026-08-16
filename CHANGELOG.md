@@ -2,6 +2,24 @@
 
 标准本身也要能被安全采用：门禁 id 一旦公布就不改含义，只新增或标 deprecated。
 
+## 0.7.0
+
+切掉本仓内部重复判定，并把自检锁到和 creativity-is-engineering 同一套合同纪律。
+
+- 废止 `RESIL-1` → `LAUNCH-2`、`RESIL-2` → `LAUNCH-1`。分类语料和主路径四步只在 launch 伞下判一次。
+- `quality-kernel`、`acceptance-path`、`compound` 改为 opt-in，并标 draft。`PATH-2` / `KERNEL-3` 仍带产品形状，下个 minor 再泛化。
+- `verify` 锁定：`CHANGELOG` 必须有 `## version`；例子里的 `` `ID` `` 必须已登记；现行 block 必须被例子引用，或标 `"evidence": "none"`；已废止 id 不得出现在 `- [ ]` 清单。
+- README 补上与 [creativity-is-engineering](https://github.com/miounet11/creativity-is-engineering) 的边界。
+- 删掉「计划中的纬度」表。`observe` / `secrets` / `rollback` / `host` / `compat` 已分别被 `RESIL-8`、`LAUNCH-5`、`LAUNCH-10`、`RESIL-7`+`LAUNCH-9`、`PRESHIP-3` 覆盖。
+- `launch.md` 阶段 8 不再复述 resilience；改为阶段 → id 对照。`LAUNCH-5` 第三条路径在正文澄清为离线粘贴或镜像，不要求公布主机地址。id 本身不改、不可豁免。
+- 例子改为只引用门禁 id。
+
+未改：`LAUNCH-5` / `PRESHIP-4` 仍不可豁免；`PROBE-1` 仍验收七步证据，执行手册仍在 build-standard。
+
+## 0.6.0
+
+- 无合同变更。`catalog.json` / `gates.json` / `package.json` 与 0.5.0 对齐为同一 version 号。本条补记，避免再出现「三份 JSON 已升、CHANGELOG 没有对应节」的漂移。
+
 ## 0.5.0
 
 - 新增 [gates.json](./gates.json)：60 条门禁有稳定 id、severity、stage。产品仓可在豁免、PR 模板、发布脚本里引用 id。

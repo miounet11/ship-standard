@@ -1,7 +1,7 @@
 {
   "$comment": "Gate IDs are the stable contract. Product repos reference these ids in waivers, PR templates and release scripts. Every id here MUST appear verbatim in its dimension file, and every checklist item in a dimension file MUST have an id.",
   "standard": "ship-standard",
-  "version": "0.5.0",
+  "version": "0.7.0",
   "severities": {
     "block": "Failing this rejects the release (or downgrades it to beta).",
     "warn": "Failing this posts a note. Promote to block after two stable green runs."
@@ -12,6 +12,27 @@
     "contract": "Capability has baselines and thresholds.",
     "release": "This build may reach users."
   },
+  "$levels": "Maturity is DERIVED from stage, never hand-listed. At level Ln a gate blocks iff its stage is in that level's stages AND its severity is block AND its dimension applies to the product. Everything above the level runs as warn. This is the single mapping; build-standard/SCHEME.md links here instead of keeping a second list.",
+  "levels": {
+    "L0": { "name": "看见", "stages": ["see"] },
+    "L1": { "name": "改得动", "stages": ["see", "change-safe"] },
+    "L2": { "name": "有合同", "stages": ["see", "change-safe", "contract"] },
+    "L3": { "name": "可上线", "stages": ["see", "change-safe", "contract", "release"] }
+  },
+  "$applies": "A dimension marked opt-in only binds when the product declares it in product/README.md. A long-running signup farm needs resilience; a library does not. Without this, deriving levels from stage would force irrelevant gates on every product.",
+  "applies": {
+    "launch": "all",
+    "resilience": "opt-in",
+    "diagnose": "all",
+    "quality-kernel": "opt-in",
+    "acceptance-path": "opt-in",
+    "pre-ship": "opt-in",
+    "compound": "opt-in",
+    "probe": "all",
+    "doc-system": "all"
+  },
+  "$waivable": "Gates absent from this list may be waived with a due date and an owner. These may not: a waiver here would let the standard bless irreversible harm.",
+  "nonWaivable": ["LAUNCH-5", "PRESHIP-4"],
   "gates": [
     { "id": "LAUNCH-1", "dimension": "launch", "stage": "release", "severity": "block", "text": "验收句可测试，主路径四步标了禁止重放" },
     { "id": "LAUNCH-2", "dimension": "launch", "stage": "contract", "severity": "block", "text": "≥20 条真实失败原文进了分类测试" },
@@ -24,8 +45,8 @@
     { "id": "LAUNCH-9", "dimension": "launch", "stage": "release", "severity": "block", "text": "看门狗、硬顶时间、降载、延后导入已打开" },
     { "id": "LAUNCH-10", "dimension": "launch", "stage": "release", "severity": "block", "text": "回滚条件写死，第一个小时的成功样本已看到" },
 
-    { "id": "RESIL-1", "dimension": "resilience", "stage": "contract", "severity": "block", "text": "20 条真实失败原文写成分类测试，不只测自编枚举" },
-    { "id": "RESIL-2", "dimension": "resilience", "stage": "see", "severity": "block", "text": "四步画出并标出禁止重放的动作" },
+    { "id": "RESIL-1", "dimension": "resilience", "stage": "contract", "severity": "block", "deprecated": true, "supersededBy": "LAUNCH-2", "text": "20 条真实失败原文写成分类测试，不只测自编枚举" },
+    { "id": "RESIL-2", "dimension": "resilience", "stage": "see", "severity": "block", "deprecated": true, "supersededBy": "LAUNCH-1", "text": "四步画出并标出禁止重放的动作" },
     { "id": "RESIL-3", "dimension": "resilience", "stage": "contract", "severity": "block", "text": "供应方能力与失败原因码一一对上" },
     { "id": "RESIL-4", "dimension": "resilience", "stage": "contract", "severity": "block", "text": "归一规则写清：哪些变体是同一身份" },
     { "id": "RESIL-5", "dimension": "resilience", "stage": "contract", "severity": "block", "text": "采购比例按计数交错；拉黑到域/号段；类型只软暂停" },

@@ -1,10 +1,11 @@
 {
   "name": "ship-standard",
-  "version": "0.5.0",
+  "version": "0.7.0",
   "description": "Acceptance and launch dimensions with stable gate ids.",
   "gates": "gates.json",
   "related": {
-    "build-standard": "https://github.com/miounet11/build-standard"
+    "build-standard": "https://github.com/miounet11/build-standard",
+    "creativity-is-engineering": "https://github.com/miounet11/creativity-is-engineering"
   },
   "dimensions": [
     {
@@ -19,7 +20,7 @@
       "title": "长跑容错",
       "path": "dimensions/resilience.md",
       "status": "stable",
-      "summary": "Read the real page or API text first. One class, one action. Never stall the whole run."
+      "summary": "One class, one action. Supplier codes, normalize, purchase mix, host shed. Classifier corpus lives on LAUNCH-2."
     },
     {
       "id": "diagnose",
@@ -32,14 +33,14 @@
       "id": "quality-kernel",
       "title": "质量内核",
       "path": "dimensions/quality-kernel.md",
-      "status": "stable",
+      "status": "draft",
       "summary": "Score the min of product pillars. Lock invariants. A fix users cannot install is not a fix."
     },
     {
       "id": "acceptance-path",
       "title": "主路径验收",
       "path": "dimensions/acceptance-path.md",
-      "status": "stable",
+      "status": "draft",
       "summary": "Real topology, same version on every end, seven-step main path, then soak."
     },
     {
@@ -53,7 +54,7 @@
       "id": "compound",
       "title": "产品力复利",
       "path": "dimensions/compound.md",
-      "status": "stable",
+      "status": "draft",
       "summary": "See first, make change safe, then turn capability into a contract. North star filters the quarter."
     },
     {
@@ -61,7 +62,7 @@
       "title": "探针先行",
       "path": "dimensions/probe.md",
       "status": "stable",
-      "summary": "Red test first. Done is what the gate says. Baselines and architecture locks compound."
+      "summary": "Release evidence of red-then-green. How to run the seven steps lives in build-standard."
     },
     {
       "id": "doc-system",

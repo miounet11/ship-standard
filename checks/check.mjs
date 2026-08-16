@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 // Self-check for this standard repo. The standard must pass its own doc-system gates.
-// Usage: node checks/check.mjs
-
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { join, dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -17,21 +15,22 @@ async function readText(p) {
   return readFile(join(ROOT, p), 'utf8');
 }
 
-async function listMarkdown(dir = '.', acc = []) {
+async function listFiles(dir = '.', acc = []) {
   const entries = await readdir(join(ROOT, dir), { withFileTypes: true });
   for (const e of entries) {
     if (e.name.startsWith('.') || e.name === 'node_modules') continue;
     const rel = dir === '.' ? e.name : `${dir}/${e.name}`;
-    if (e.isDirectory()) await listMarkdown(rel, acc);
-    else if (e.name.endsWith('.md')) acc.push(rel);
+    if (e.isDirectory()) await listFiles(rel, acc);
+    else acc.push(rel);
   }
   return acc;
 }
 
-// --- catalog ↔ files -------------------------------------------------------
 const catalog = JSON.parse(await readText('catalog.json'));
 const gatesDoc = JSON.parse(await readText('gates.json'));
+const pkg = JSON.parse(await readText('package.json'));
 const dimensionIds = new Set(catalog.dimensions.map((d) => d.id));
+const byId = new Map(gatesDoc.gates.map((g) => [g.id, g]));
 
 for (const d of catalog.dimensions) {
   try {
@@ -44,8 +43,45 @@ for (const d of catalog.dimensions) {
 if (catalog.version !== gatesDoc.version) {
   fail('VERSION-DRIFT', `catalog.json ${catalog.version} != gates.json ${gatesDoc.version}`);
 }
+if (pkg.version !== gatesDoc.version) {
+  fail('VERSION-DRIFT', `package.json ${pkg.version} != gates.json ${gatesDoc.version}`);
+}
 
-// --- gate ids are two-way consistent with dimension docs -------------------
+const changelog = await readText('CHANGELOG.md');
+if (!changelog.includes(`## ${catalog.version}`)) {
+  fail('VERSION-CHANGELOG', `CHANGELOG.md has no section ## ${catalog.version}`);
+}
+
+const stageNames = new Set(Object.keys(gatesDoc.stages));
+for (const [level, def] of Object.entries(gatesDoc.levels)) {
+  if (!/^L[0-3]$/.test(level)) fail('LEVEL-NAME', `unexpected level ${level}`);
+  for (const s of def.stages) {
+    if (!stageNames.has(s)) fail('LEVEL-STAGE', `${level} references unknown stage ${s}`);
+  }
+}
+if (gatesDoc.levels.L3.stages.length !== stageNames.size) {
+  fail('LEVEL-COVERAGE', 'L3 must cover every stage, otherwise some gates never block');
+}
+for (const d of catalog.dimensions) {
+  const applies = gatesDoc.applies[d.id];
+  if (!applies) fail('APPLIES-MISSING', `gates.json applies has no entry for dimension ${d.id}`);
+  else if (!['all', 'opt-in'].includes(applies)) {
+    fail('APPLIES-VALUE', `${d.id} applies must be "all" or "opt-in", got "${applies}"`);
+  }
+}
+for (const id of gatesDoc.nonWaivable) {
+  const g = byId.get(id);
+  if (!g) fail('NONWAIVABLE-ORPHAN', `nonWaivable lists ${id}, which is not a gate`);
+  else if (g.deprecated) fail('NONWAIVABLE-DEPRECATED', `nonWaivable lists deprecated ${id}`);
+}
+
+const coveredStages = new Set(Object.values(gatesDoc.levels).flatMap((l) => l.stages));
+for (const g of gatesDoc.gates) {
+  if (!coveredStages.has(g.stage)) {
+    fail('GATE-UNREACHABLE', `${g.id} has stage ${g.stage}, which no level includes`);
+  }
+}
+
 const seen = new Set();
 for (const g of gatesDoc.gates) {
   if (seen.has(g.id)) fail('GATE-DUP', `duplicate gate id ${g.id}`);
@@ -56,13 +92,13 @@ for (const g of gatesDoc.gates) {
   }
   if (!gatesDoc.severities[g.severity]) fail('GATE-SEVERITY', `${g.id} has unknown severity ${g.severity}`);
   if (!gatesDoc.stages[g.stage]) fail('GATE-STAGE', `${g.id} has unknown stage ${g.stage}`);
+  if (g.deprecated && !g.supersededBy) fail('GATE-DEPRECATED', `${g.id} is deprecated without supersededBy`);
   const doc = await readText(`dimensions/${g.dimension}.md`);
   if (!doc.includes(g.id)) {
     fail('GATE-UNDOCUMENTED', `${g.id} is in gates.json but not written in dimensions/${g.dimension}.md`);
   }
 }
 
-// every checklist item in a dimension must carry an id
 for (const d of catalog.dimensions) {
   const doc = await readText(d.path);
   const items = doc.split('\n').filter((l) => /^- \[[ x]\]/.test(l));
@@ -72,12 +108,46 @@ for (const d of catalog.dimensions) {
     } else {
       const id = line.match(/`([A-Z]+-\d+)`/)[1];
       if (!seen.has(id)) fail('GATE-UNREGISTERED', `${d.path}: ${id} is not in gates.json`);
+      if (byId.get(id)?.deprecated) {
+        fail('GATE-DEPRECATED-ACTIVE', `${d.path}: active checklist cites deprecated ${id}`);
+      }
     }
   }
 }
 
-// --- doc-system rules applied to ourselves --------------------------------
-const mdFiles = await listMarkdown();
+const allFiles = await listFiles();
+const mdFiles = allFiles.filter((f) => f.endsWith('.md'));
+const exampleFiles = allFiles.filter((f) => f.startsWith('examples/') && !f.includes('.template.'));
+
+const localPrefixes = new Set([...seen].map((id) => id.split('-')[0]));
+const cited = new Set();
+for (const f of exampleFiles) {
+  const text = await readText(f);
+  for (const m of text.matchAll(/`([A-Z]+-\d+)`/g)) {
+    const id = m[1];
+    if (seen.has(id)) {
+      cited.add(id);
+      continue;
+    }
+    if (localPrefixes.has(id.split('-')[0])) {
+      fail('GATE-UNREGISTERED', `${f}: cites unregistered ${id}`);
+    }
+  }
+}
+
+for (const g of gatesDoc.gates) {
+  if (g.deprecated) continue;
+  if (g.severity !== 'block') continue;
+  if (g.evidence === 'none') continue;
+  if (!cited.has(g.id)) {
+    fail('GATE-UNCITED', `${g.id} is an active block gate with no example citation`);
+  }
+}
+
+const readme = await readText('README.md');
+if (!/build-standard/.test(readme) || !/creativity-is-engineering/.test(readme)) {
+  fail('DOC-1', 'README.md must name build-standard and creativity-is-engineering');
+}
 
 for (const f of mdFiles) {
   if (/最新|latest-version|FINAL/i.test(f)) {
@@ -85,7 +155,6 @@ for (const f of mdFiles) {
   }
   const text = await readText(f);
 
-  // duplicate top-level headings (the drift that hit README once)
   const headings = text.split('\n').filter((l) => /^##\s+\S/.test(l)).map((l) => l.trim());
   const dupes = headings.filter((h, i) => headings.indexOf(h) !== i);
   if (dupes.length) fail('DOC-DUP-HEADING', `${f}: repeated heading ${[...new Set(dupes)].join(', ')}`);
@@ -94,7 +163,6 @@ for (const f of mdFiles) {
     if (/^#{1,6}\s.*最新/.test(line)) fail('DOC-5', `${f}: heading claims 最新 -> ${line.trim()}`);
   }
 
-  // relative links must resolve
   for (const m of text.matchAll(/\[[^\]]*\]\((\.\.?\/[^)#\s]+)/g)) {
     const target = resolve(dirname(join(ROOT, f)), m[1]);
     try {
@@ -104,7 +172,6 @@ for (const f of mdFiles) {
     }
   }
 
-  // secrets must never live here
   if (/\b(sk-[A-Za-z0-9]{16,}|AKIA[0-9A-Z]{12,}|ghp_[A-Za-z0-9]{20,})\b/.test(text)) {
     fail('SECRET', `${f}: looks like a credential`);
   }
@@ -113,7 +180,6 @@ for (const f of mdFiles) {
   }
 }
 
-// --- STATUS must be generated ---------------------------------------------
 try {
   const status = await readText('STATUS.md');
   if (!/Generated by/.test(status)) fail('DOC-2', 'STATUS.md is missing the generated banner');
@@ -124,12 +190,13 @@ try {
   fail('DOC-2', 'STATUS.md is missing — run npm run status');
 }
 
-// --- report ---------------------------------------------------------------
 const rel = (p) => relative(process.cwd(), p) || '.';
+const active = gatesDoc.gates.filter((g) => !g.deprecated);
 console.log(`ship-standard self-check (${rel(ROOT)})`);
 console.log(`  dimensions: ${catalog.dimensions.length}`);
-console.log(`  gates:      ${gatesDoc.gates.length}`);
+console.log(`  gates:      ${gatesDoc.gates.length} (${active.length} active, ${gatesDoc.gates.length - active.length} deprecated)`);
 console.log(`  markdown:   ${mdFiles.length}`);
+console.log(`  cited:      ${cited.size} ids in examples`);
 
 for (const w of warnings) console.log(`  warn  ${w}`);
 for (const f of failures) console.log(`  FAIL  ${f}`);
