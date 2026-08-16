@@ -12,5 +12,6 @@
 | [pre-ship.md](./pre-ship.md) | stable | 上架面服从内核；生产守卫 |
 | [compound.md](./compound.md) | stable | 复利顺序：看见 → 改得动 → 合同 |
 | [probe.md](./probe.md) | stable | 七步环；先红后绿；基线门禁 |
+| [doc-system.md](./doc-system.md) | stable | 权威表、生成 STATUS、病例归档 |
 
 登记以 [catalog.json](../catalog.json) 为准。

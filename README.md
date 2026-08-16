@@ -16,6 +16,7 @@
 | [pre-ship](./dimensions/pre-ship.md) | 上架包装服从内核 | 内测 ≠ 商用；生产守卫 |
 | [compound](./dimensions/compound.md) | 产品力靠复利，不靠堆功能 | 先看见 → 改得动 → 写成合同 |
 | [probe](./dimensions/probe.md) | 先红后绿，完成由门禁说了算 | 七步环 + 基线 + 架构探针 |
+| [doc-system](./dimensions/doc-system.md) | 现行合同短，过期进归档 | 权威表、生成 STATUS、禁止「最新」 |
 
 机器可读目录：[catalog.json](./catalog.json)。
 
@@ -27,8 +28,9 @@
 2. 长跑、接码、表单、导入这类会空转的系统，再对照 [resilience](./dimensions/resilience.md)。
 3. 收尾修「连上了但不能用」时，用 [diagnose](./dimensions/diagnose.md)；连续打补丁时用 [quality-kernel](./dimensions/quality-kernel.md)；发版勾选用 [acceptance-path](./dimensions/acceptance-path.md)；商店/官网用 [pre-ship](./dimensions/pre-ship.md)。
 4. 想让产品力每个季度都变强，用 [compound](./dimensions/compound.md) 定顺序，用 [probe](./dimensions/probe.md) 落七步环。
-5. 某次排障里抽出可复用的做法，按 [dimensions/_template.md](./dimensions/_template.md) 加一个新纬度，并登记到 `catalog.json`。
-6. 具体产品的对照表放进 [examples/](./examples/)，不要把密钥、内网地址、库存域名写进纬度正文。
+5. 长项目文档开始互相打架时，用 [doc-system](./dimensions/doc-system.md)；总纲在 [build-standard SCHEME](https://github.com/miounet11/build-standard/blob/main/SCHEME.md)。
+6. 某次排障里抽出可复用的做法，按 [dimensions/_template.md](./dimensions/_template.md) 加一个新纬度，并登记到 `catalog.json`。
+7. 具体产品的对照表放进 [examples/](./examples/)，不要把密钥、内网地址、库存域名写进纬度正文。
 
 ---
 
@@ -58,7 +60,7 @@
 
 ## 许可
 
-创建这些程序的方法在姊妹仓库 [build-standard](https://github.com/miounet11/build-standard)：人定做成、仓库当记忆、Agent 跑七步环。
+高质量软件总纲：[build-standard SCHEME](https://github.com/miounet11/build-standard/blob/main/SCHEME.md)。
 
 ---
 

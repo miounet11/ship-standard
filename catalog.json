@@ -1,6 +1,6 @@
 {
   "name": "ship-standard",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Acceptance and launch dimensions that grow over time.",
   "dimensions": [
     {
@@ -58,6 +58,13 @@
       "path": "dimensions/probe.md",
       "status": "stable",
       "summary": "Red test first. Done is what the gate says. Baselines and architecture locks compound."
+    },
+    {
+      "id": "doc-system",
+      "title": "文档系统",
+      "path": "dimensions/doc-system.md",
+      "status": "stable",
+      "summary": "One living file per concern. Generated STATUS. Archive case files. No document titled latest."
     }
   ]
 }
