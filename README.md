@@ -58,4 +58,10 @@
 
 ## 许可
 
+创建这些程序的方法在姊妹仓库 [build-standard](https://github.com/miounet11/build-standard)：人定做成、仓库当记忆、Agent 跑七步环。
+
+---
+
+## 许可
+
 [MIT](./LICENSE)。标准本身公开，方便团队复制和继续加纬度。
