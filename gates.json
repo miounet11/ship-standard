@@ -1,0 +1,85 @@
+{
+  "$comment": "Gate IDs are the stable contract. Product repos reference these ids in waivers, PR templates and release scripts. Every id here MUST appear verbatim in its dimension file, and every checklist item in a dimension file MUST have an id.",
+  "standard": "ship-standard",
+  "version": "0.5.0",
+  "severities": {
+    "block": "Failing this rejects the release (or downgrades it to beta).",
+    "warn": "Failing this posts a note. Promote to block after two stable green runs."
+  },
+  "stages": {
+    "see": "Gaps are visible: lights, risks, generated status.",
+    "change-safe": "Architecture can absorb change: layers locked by probes.",
+    "contract": "Capability has baselines and thresholds.",
+    "release": "This build may reach users."
+  },
+  "gates": [
+    { "id": "LAUNCH-1", "dimension": "launch", "stage": "release", "severity": "block", "text": "验收句可测试，主路径四步标了禁止重放" },
+    { "id": "LAUNCH-2", "dimension": "launch", "stage": "contract", "severity": "block", "text": "≥20 条真实失败原文进了分类测试" },
+    { "id": "LAUNCH-3", "dimension": "launch", "stage": "contract", "severity": "block", "text": "业务分类与基础设施分类分开，每类一种动作" },
+    { "id": "LAUNCH-4", "dimension": "launch", "stage": "release", "severity": "block", "text": "单测绿，主路径至少一条端到端绿" },
+    { "id": "LAUNCH-5", "dimension": "launch", "stage": "release", "severity": "block", "text": "安装包无密钥；配置可 URL / 粘贴 / IP" },
+    { "id": "LAUNCH-6", "dimension": "launch", "stage": "release", "severity": "block", "text": "开机说明、数据目录、STOP 路径写清" },
+    { "id": "LAUNCH-7", "dimension": "launch", "stage": "release", "severity": "block", "text": "小并发灰度过了一个业务周期，无空转" },
+    { "id": "LAUNCH-8", "dimension": "launch", "stage": "release", "severity": "block", "text": "旧进程已停，新旧不抢同一资源" },
+    { "id": "LAUNCH-9", "dimension": "launch", "stage": "release", "severity": "block", "text": "看门狗、硬顶时间、降载、延后导入已打开" },
+    { "id": "LAUNCH-10", "dimension": "launch", "stage": "release", "severity": "block", "text": "回滚条件写死，第一个小时的成功样本已看到" },
+
+    { "id": "RESIL-1", "dimension": "resilience", "stage": "contract", "severity": "block", "text": "20 条真实失败原文写成分类测试，不只测自编枚举" },
+    { "id": "RESIL-2", "dimension": "resilience", "stage": "see", "severity": "block", "text": "四步画出并标出禁止重放的动作" },
+    { "id": "RESIL-3", "dimension": "resilience", "stage": "contract", "severity": "block", "text": "供应方能力与失败原因码一一对上" },
+    { "id": "RESIL-4", "dimension": "resilience", "stage": "contract", "severity": "block", "text": "归一规则写清：哪些变体是同一身份" },
+    { "id": "RESIL-5", "dimension": "resilience", "stage": "contract", "severity": "block", "text": "采购比例按计数交错；拉黑到域/号段；类型只软暂停" },
+    { "id": "RESIL-6", "dimension": "resilience", "stage": "release", "severity": "block", "text": "启动 / HTTP / 导入带超时与有限重试；导入失败不回滚主产物" },
+    { "id": "RESIL-7", "dimension": "resilience", "stage": "release", "severity": "block", "text": "主机负载进看门狗；内存过低先减窗口再暂停" },
+    { "id": "RESIL-8", "dimension": "resilience", "stage": "see", "severity": "block", "text": "日志可区分 skip / cooldown / pause-type / launch-fail / shed / watchdog / deferred" },
+
+    { "id": "DIAG-1", "dimension": "diagnose", "stage": "see", "severity": "block", "text": "已画出本产品的分层，每层有独立证据" },
+    { "id": "DIAG-2", "dimension": "diagnose", "stage": "change-safe", "severity": "block", "text": "本轮只修一个主根因，邻层记 backlog" },
+    { "id": "DIAG-3", "dimension": "diagnose", "stage": "release", "severity": "block", "text": "回归用同版本正式路径，不只用 dev" },
+    { "id": "DIAG-4", "dimension": "diagnose", "stage": "change-safe", "severity": "block", "text": "根因写成一句话，并补了单测或清单项" },
+    { "id": "DIAG-5", "dimension": "diagnose", "stage": "see", "severity": "warn", "text": "已排除外部干扰和过期日志" },
+
+    { "id": "KERNEL-1", "dimension": "quality-kernel", "stage": "see", "severity": "block", "text": "本产品主柱已写下，评分用 min 不是平均" },
+    { "id": "KERNEL-2", "dimension": "quality-kernel", "stage": "change-safe", "severity": "block", "text": "每层唯一职责表已写，无两环同改一旋钮" },
+    { "id": "KERNEL-3", "dimension": "quality-kernel", "stage": "contract", "severity": "block", "text": "K1–K10 或等价不变量有测试" },
+    { "id": "KERNEL-4", "dimension": "quality-kernel", "stage": "change-safe", "severity": "block", "text": "本轮没有一症状一补丁式跨层大改" },
+    { "id": "KERNEL-5", "dimension": "quality-kernel", "stage": "release", "severity": "block", "text": "用户通道已能吃到本版（分发落后 ≤ 一个次版本）" },
+    { "id": "KERNEL-6", "dimension": "quality-kernel", "stage": "release", "severity": "block", "text": "主路径清单仍是尚未勾完的那份，没有用功能矩阵代替" },
+
+    { "id": "PATH-1", "dimension": "acceptance-path", "stage": "release", "severity": "block", "text": "主路径 7 步已勾，或明确停在失败步" },
+    { "id": "PATH-2", "dimension": "acceptance-path", "stage": "release", "severity": "block", "text": "拓扑是产品真实路径，不是嵌套互控" },
+    { "id": "PATH-3", "dimension": "acceptance-path", "stage": "release", "severity": "block", "text": "各端同 version，用户通道已对齐" },
+    { "id": "PATH-4", "dimension": "acceptance-path", "stage": "release", "severity": "warn", "text": "已排除本机竞品 / 自动化干扰" },
+    { "id": "PATH-5", "dimension": "acceptance-path", "stage": "release", "severity": "block", "text": "文案无人话以外的协议词；设置入口唯一" },
+    { "id": "PATH-6", "dimension": "acceptance-path", "stage": "release", "severity": "warn", "text": "有长测记录或明确标注仅冒烟未长测" },
+
+    { "id": "PRESHIP-1", "dimension": "pre-ship", "stage": "release", "severity": "block", "text": "内核门禁已过，或明确只发内测并写明限制" },
+    { "id": "PRESHIP-2", "dimension": "pre-ship", "stage": "release", "severity": "warn", "text": "品牌表锁定；各端同源" },
+    { "id": "PRESHIP-3", "dimension": "pre-ship", "stage": "release", "severity": "block", "text": "兼容矩阵与权限向导写清" },
+    { "id": "PRESHIP-4", "dimension": "pre-ship", "stage": "release", "severity": "block", "text": "生产守卫未关；预检绿" },
+    { "id": "PRESHIP-5", "dimension": "pre-ship", "stage": "release", "severity": "block", "text": "法律页公网可开；同意版本一致" },
+    { "id": "PRESHIP-6", "dimension": "pre-ship", "stage": "release", "severity": "block", "text": "更新地址 / 公钥只有一套" },
+    { "id": "PRESHIP-7", "dimension": "pre-ship", "stage": "release", "severity": "block", "text": "支付与短信：要么实测，要么对外材料不宣称" },
+
+    { "id": "COMPOUND-1", "dimension": "compound", "stage": "see", "severity": "block", "text": "北极星 3–5 条已写下；路线图只服务它们" },
+    { "id": "COMPOUND-2", "dimension": "compound", "stage": "see", "severity": "block", "text": "合同目录齐：路线图 / 风险 / 门禁 / 规格 / 生成的状态页" },
+    { "id": "COMPOUND-3", "dimension": "compound", "stage": "see", "severity": "warn", "text": "处在复利顺序的正确阶段，没有跳去商业化或堆功能" },
+    { "id": "COMPOUND-4", "dimension": "compound", "stage": "contract", "severity": "block", "text": "每个已宣称的核心能力有基线文件" },
+    { "id": "COMPOUND-5", "dimension": "compound", "stage": "release", "severity": "block", "text": "打开的 S1 为 0，或发布通道明确是 beta" },
+    { "id": "COMPOUND-6", "dimension": "compound", "stage": "see", "severity": "warn", "text": "本季度 out-of-scope 写在路线图里" },
+
+    { "id": "PROBE-1", "dimension": "probe", "stage": "see", "severity": "block", "text": "PR 模板含诊断 / 规格 / 计划 / 红 / 绿 / 验证 / 反思" },
+    { "id": "PROBE-2", "dimension": "probe", "stage": "see", "severity": "block", "text": "本范围门禁列表写清 warn 还是 block" },
+    { "id": "PROBE-3", "dimension": "probe", "stage": "change-safe", "severity": "block", "text": "新行为有探针；S1 修复有回归" },
+    { "id": "PROBE-4", "dimension": "probe", "stage": "change-safe", "severity": "block", "text": "结构约定有架构探针" },
+    { "id": "PROBE-5", "dimension": "probe", "stage": "contract", "severity": "block", "text": "基线文件已更新或确认未回退" },
+    { "id": "PROBE-6", "dimension": "probe", "stage": "see", "severity": "block", "text": "风险册在同一 PR 补了新缺口（若有）" },
+
+    { "id": "DOC-1", "dimension": "doc-system", "stage": "see", "severity": "block", "text": "权威表存在，每类问题只链一份" },
+    { "id": "DOC-2", "dimension": "doc-system", "stage": "see", "severity": "block", "text": "STATUS 为生成物，version 与包配置一致" },
+    { "id": "DOC-3", "dimension": "doc-system", "stage": "see", "severity": "block", "text": "打开的 S1 写在风险册里，不写在第三份手写状态里" },
+    { "id": "DOC-4", "dimension": "doc-system", "stage": "change-safe", "severity": "block", "text": "新病例已挂不变量编号，或已进归档" },
+    { "id": "DOC-5", "dimension": "doc-system", "stage": "see", "severity": "block", "text": "仓库内没有文件名 / 标题含「最新」的现行文档" },
+    { "id": "DOC-6", "dimension": "doc-system", "stage": "see", "severity": "warn", "text": "身份文件不另写进度百分比" }
+  ]
+}

@@ -14,4 +14,6 @@
 | [probe.md](./probe.md) | stable | 七步环；先红后绿；基线门禁 |
 | [doc-system.md](./doc-system.md) | stable | 权威表、生成 STATUS、病例归档 |
 
-登记以 [catalog.json](../catalog.json) 为准。
+登记以 [catalog.json](../catalog.json) 为准；门禁 id 以 [gates.json](../gates.json) 为准。
+
+开新纬度先加 id，再写文档，再跑 `npm run verify` —— 清单项缺 id、或 id 未登记，都会红。
