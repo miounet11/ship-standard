@@ -1,7 +1,7 @@
 {
   "$comment": "Gate IDs are the stable contract. Product repos reference these ids in waivers, PR templates and release scripts. Every id here MUST appear verbatim in its dimension file, and every checklist item in a dimension file MUST have an id.",
   "standard": "ship-standard",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "severities": {
     "block": "Failing this rejects the release (or downgrades it to beta).",
     "warn": "Failing this posts a note. Promote to block after two stable green runs."

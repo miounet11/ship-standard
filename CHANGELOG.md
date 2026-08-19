@@ -2,6 +2,13 @@
 
 标准本身也要能被安全采用：门禁 id 一旦公布就不改含义，只新增或标 deprecated。
 
+## 0.8.2
+
+兼容指针，无合同变更，无新门禁 id，无纬度变更。
+
+- `catalog.related`、README 边界表、`examples/standard-self.md` 补上 [begin](https://github.com/miounet11/begin)：新产品从短需求怎么开工、方案怎么被系统制定成合同。
+- 「怎么创建」仍指 build-standard `practices/`；能不能上线的判定仍在本仓。
+
 ## 0.8.1
 
 无合同变更。家族地图补上评测尺和审查循环，不新开门禁。
