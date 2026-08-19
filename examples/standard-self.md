@@ -12,4 +12,4 @@
 
 `npm run verify` 还锁定：`CHANGELOG.md` 必须有 `## version`；现行 block 必须被例子用 `` `ID` `` 引用；已废止 id 不得出现在 `- [ ]` 清单里。
 
-一问一仓：能不能上线是本仓；怎么创建是 [build-standard](https://github.com/miounet11/build-standard)；洞察有没有落成定律是 [creativity-is-engineering](https://github.com/miounet11/creativity-is-engineering)；六面修交接本是 [ability-harness](https://github.com/miounet11/ability-harness)；迭代漏审是 [review-harness](https://github.com/miounet11/review-harness)。
+一问一仓：能不能上线是本仓；怎么创建是 [build-standard](https://github.com/miounet11/build-standard)；洞察有没有落成定律是 [creativity-is-engineering](https://github.com/miounet11/creativity-is-engineering)；新产品怎么开工、方案怎么变合同是 [begin](https://github.com/miounet11/begin)；六面修交接本是 [ability-harness](https://github.com/miounet11/ability-harness)；迭代漏审是 [review-harness](https://github.com/miounet11/review-harness)。

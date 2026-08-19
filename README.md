@@ -34,6 +34,7 @@
 | **怎么创建**：七步怎么执行、人与 Agent 分工、仓库记忆、最小变绿 | [build-standard](https://github.com/miounet11/build-standard) `practices/` |
 | **能不能上线**：门禁 id、主柱、主路径、灰度、回滚 | **本仓** `dimensions/` |
 | **创造有没有落成定律**：不删优势、分段、洞察落盘 | [creativity-is-engineering](https://github.com/miounet11/creativity-is-engineering) |
+| 新产品从短需求怎么开工、方案怎么被系统制定成合同 | [begin](https://github.com/miounet11/begin) |
 | 这个模型在六面上能不能修交接本 | [ability-harness](https://github.com/miounet11/ability-harness) |
 | 这轮迭代 / 升级 / 修 bug 有没有漏审查 | [review-harness](https://github.com/miounet11/review-harness) |
 | 豁免单、产品仓空合同模板、落地脚本 | build-standard `templates/` |
